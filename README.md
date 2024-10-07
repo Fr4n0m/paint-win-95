@@ -1,3 +1,5 @@
+![paint-95](https://github.com/user-attachments/assets/1b82997d-1a52-41cd-b9d9-e8e20e2b1f49)
+
 # Paint 95'
 
 Una aplicación de pintura inspirada en la era de Windows 95
