@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,19 +9,23 @@
 </head>
 <body>
   <div class="desktop-shell">
-    <aside class="desktop-icons" aria-label="Iconos del escritorio">
-      <button id="desktop-paint" class="desktop-icon" type="button">
-        <img src="/icons/icon.png" alt="" />
-        <span>My Paint</span>
-      </button>
+    <aside class="desktop-icons" aria-label="Desktop icons">
       <button id="desktop-docs" class="desktop-icon" type="button">
         <img src="/icons/save.png" alt="" />
-        <span>Mis Dibujos</span>
+        <span>My Drawings</span>
       </button>
       <button id="desktop-trash" class="desktop-icon" type="button">
         <img src="/icons/trash.png" alt="" />
-        <span>Papelera</span>
+        <span>Recycle Bin</span>
       </button>
+      <a class="desktop-icon" href="https://github.com/Fr4n0m/paint-win-95/pulls" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub pull requests">
+        <img src="/icons/github.webp" alt="" />
+        <span>Open PR</span>
+      </a>
+      <a class="desktop-icon" href="https://codebyfran.es" target="_blank" rel="noopener noreferrer" aria-label="Visit codebyfran.es">
+        <img src="/icons/icon.png" alt="" />
+        <span>Built by Fr4n0m</span>
+      </a>
     </aside>
 
     <section id="paint-window" class="paint-window">
@@ -31,9 +35,9 @@
           Untitled - Paint
         </div>
         <div class="title-bar-controls">
-          <button id="win-min-btn" type="button" aria-label="Minimizar">_</button>
-          <button id="win-max-btn" type="button" aria-label="Maximizar">&#9633;</button>
-          <button id="win-close-btn" type="button" aria-label="Cerrar">X</button>
+          <button id="win-min-btn" type="button" aria-label="Minimize">_</button>
+          <button id="win-max-btn" type="button" aria-label="Maximize">&#9633;</button>
+          <button id="win-close-btn" type="button" aria-label="Close">X</button>
         </div>
       </header>
 
@@ -41,49 +45,49 @@
         <nav class="menu-row" aria-label="Menus">
           <button id="menu-file-btn" type="button">File</button>
           <button id="menu-edit-btn" type="button">Edit</button>
-          <button id="menu-colours-btn" type="button">Colours</button>
+          <button id="menu-colours-btn" type="button">Colors</button>
           <button id="menu-help-btn" type="button">Help</button>
         </nav>
 
-        <header class="menu-bar" aria-label="Acciones">
-          <button id="new-btn" type="button">Nuevo</button>
-          <button id="open-btn" type="button">Abrir</button>
-          <button id="undo-btn" type="button">Deshacer</button>
-          <button id="redo-btn" type="button">Rehacer</button>
-          <button id="save-btn" type="button">Guardar</button>
+        <header class="menu-bar" aria-label="Actions">
+          <button id="new-btn" type="button">New</button>
+          <button id="open-btn" type="button">Open</button>
+          <button id="undo-btn" type="button">Undo</button>
+          <button id="redo-btn" type="button">Redo</button>
+          <button id="save-btn" type="button">Save</button>
           <input id="open-file-input" type="file" accept="image/*" hidden />
         </header>
 
-        <aside class="toolbox" aria-label="Herramientas">
+        <aside class="toolbox" aria-label="Tools">
           <nav>
-            <button id="select-btn" class="tool-btn glyph-tool-btn" type="button" title="Seleccion libre" aria-label="Seleccion libre">☆</button>
-            <button id="select-rect-btn" class="tool-btn glyph-tool-btn" type="button" title="Seleccion rectangular" aria-label="Seleccion rectangular">▦</button>
-            <button id="erase-btn" class="tool-btn" type="button" title="Borrar" aria-label="Borrar"></button>
-            <button id="fill-btn" class="tool-btn" type="button" title="Rellenar" aria-label="Rellenar"></button>
-            <button id="line-btn" class="tool-btn text-tool-btn" type="button" title="Linea" aria-label="Linea">/</button>
-            <button id="picker-btn" class="tool-btn" type="button" title="Capturar color" aria-label="Capturar color"></button>
-            <button id="draw-btn" class="tool-btn" type="button" title="Lapiz" aria-label="Lapiz"></button>
-            <button id="brush-btn" class="tool-btn glyph-tool-btn" type="button" title="Pincel" aria-label="Pincel">B</button>
-            <button id="text-btn" class="tool-btn text-tool-btn" type="button" title="Texto" aria-label="Texto">A</button>
-            <button id="curve-btn" class="tool-btn glyph-tool-btn" type="button" title="Curva" aria-label="Curva">∿</button>
-            <button id="rectangle-btn" class="tool-btn" type="button" title="Rectangulo" aria-label="Rectangulo"></button>
-            <button id="ellipse-btn" class="tool-btn" type="button" title="Elipse" aria-label="Elipse"></button>
-            <button id="polygon-btn" class="tool-btn glyph-tool-btn" type="button" title="Poligono" aria-label="Poligono">△</button>
-            <button id="rounded-rect-btn" class="tool-btn glyph-tool-btn" type="button" title="Rectangulo redondeado" aria-label="Rectangulo redondeado">▢</button>
-            <button id="clear-btn" class="tool-btn" type="button" title="Limpiar dibujo" aria-label="Limpiar dibujo"></button>
+            <button id="select-btn" class="tool-btn glyph-tool-btn" type="button" title="Free Select" aria-label="Free Select">☆</button>
+            <button id="select-rect-btn" class="tool-btn glyph-tool-btn" type="button" title="Rectangular Select" aria-label="Rectangular Select">▦</button>
+            <button id="erase-btn" class="tool-btn" type="button" title="Eraser" aria-label="Eraser"></button>
+            <button id="fill-btn" class="tool-btn" type="button" title="Fill" aria-label="Fill"></button>
+            <button id="line-btn" class="tool-btn text-tool-btn" type="button" title="Line" aria-label="Line">/</button>
+            <button id="picker-btn" class="tool-btn" type="button" title="Pick Color" aria-label="Pick Color"></button>
+            <button id="draw-btn" class="tool-btn" type="button" title="Pencil" aria-label="Pencil"></button>
+            <button id="brush-btn" class="tool-btn glyph-tool-btn" type="button" title="Brush" aria-label="Brush">B</button>
+            <button id="text-btn" class="tool-btn text-tool-btn" type="button" title="Text" aria-label="Text">A</button>
+            <button id="curve-btn" class="tool-btn glyph-tool-btn" type="button" title="Curve" aria-label="Curve">∿</button>
+            <button id="rectangle-btn" class="tool-btn" type="button" title="Rectangle" aria-label="Rectangle"></button>
+            <button id="ellipse-btn" class="tool-btn" type="button" title="Ellipse" aria-label="Ellipse"></button>
+            <button id="polygon-btn" class="tool-btn glyph-tool-btn" type="button" title="Polygon" aria-label="Polygon">△</button>
+            <button id="rounded-rect-btn" class="tool-btn glyph-tool-btn" type="button" title="Rounded Rectangle" aria-label="Rounded Rectangle">▢</button>
+            <button id="clear-btn" class="tool-btn" type="button" title="Clear Drawing" aria-label="Clear Drawing"></button>
           </nav>
         </aside>
 
         <main id="canvas-wrap" class="canvas-wrap">
-          <canvas id="canvas" aria-label="Lienzo de dibujo"></canvas>
+          <canvas id="canvas" aria-label="Drawing canvas"></canvas>
           <canvas id="overlay-canvas" aria-hidden="true"></canvas>
         </main>
 
         <footer class="footer">
           <div class="colors-panel">
-            <div class="color-wells" aria-label="Colores activo y secundario">
-              <button id="primary-color-well" class="color-well primary" type="button" title="Color primario"></button>
-              <button id="secondary-color-well" class="color-well secondary" type="button" title="Color secundario"></button>
+            <div class="color-wells" aria-label="Primary and secondary colors">
+              <button id="primary-color-well" class="color-well primary" type="button" title="Primary color"></button>
+              <button id="secondary-color-well" class="color-well secondary" type="button" title="Secondary color"></button>
             </div>
             <div class="color-inputs" aria-hidden="true">
               <input type="color" id="color-picker" value="#000000" />
@@ -91,7 +95,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label for="line-width">Grosor</label>
+            <label for="line-width">Stroke</label>
             <input id="line-width" type="range" min="1" max="40" step="1" value="2" />
             <span id="line-width-value">2</span>
           </div>
@@ -104,12 +108,12 @@
             </select>
           </div>
           <div class="control-group">
-            <label for="fill-shapes">Rellenar formas</label>
+            <label for="fill-shapes">Fill shapes</label>
             <input id="fill-shapes" type="checkbox" />
           </div>
-          <div id="palette" class="palette" aria-label="Paleta clasica"></div>
+          <div id="palette" class="palette" aria-label="Classic palette"></div>
           <div class="status-wrap">
-            <span id="status-tool">Herramienta: Pincel</span>
+            <span id="status-tool">Tool: Brush</span>
             <span id="status-coords">X: 0, Y: 0</span>
           </div>
         </footer>
@@ -121,10 +125,10 @@
         <span>Windows 95</span>
       </div>
       <div class="start-menu-items">
-        <button id="start-open-paint" type="button">Abrir Paint</button>
-        <button id="start-new-drawing" type="button">Nuevo dibujo</button>
-        <button id="start-open-image" type="button">Abrir imagen</button>
-        <button id="start-clear-canvas" type="button">Limpiar lienzo</button>
+        <button id="start-open-paint" type="button">Open Paint</button>
+        <button id="start-new-drawing" type="button">New Drawing</button>
+        <button id="start-open-image" type="button">Open Image</button>
+        <button id="start-clear-canvas" type="button">Clear Canvas</button>
       </div>
     </div>
 

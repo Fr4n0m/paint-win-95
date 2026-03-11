@@ -61,7 +61,6 @@ class PaintApp {
     this.windowMaxButton = this.getRequiredElement('win-max-btn')
     this.windowCloseButton = this.getRequiredElement('win-close-btn')
 
-    this.desktopPaint = this.getRequiredElement('desktop-paint')
     this.desktopDocs = this.getRequiredElement('desktop-docs')
     this.desktopTrash = this.getRequiredElement('desktop-trash')
 
@@ -98,7 +97,7 @@ class PaintApp {
     this.ctx = this.canvas.getContext('2d')
     this.overlayCtx = this.overlayCanvas.getContext('2d')
     if (!this.ctx || !this.overlayCtx) {
-      throw new Error('No se pudo inicializar el contexto de canvas.')
+      throw new Error('Could not initialize canvas context.')
     }
 
     this.mode = MODES.DRAW
@@ -114,6 +113,7 @@ class PaintApp {
     this.isWindowVisible = true
     this.isWindowMaximized = false
     this.dragWindowState = null
+    this.activeDesktopIcon = null
 
     this.primaryColor = this.colorPicker.value
     this.secondaryColor = this.secondaryColorPicker.value
@@ -201,7 +201,7 @@ class PaintApp {
     this.menuEditBtn.addEventListener('click', () => this.undo())
     this.menuColoursBtn.addEventListener('click', () => this.colorPicker.click())
     this.menuHelpBtn.addEventListener('click', () => {
-      window.alert('Paint Win 95\\nAtajos: B/E/L/R/C/F/T/S y Ctrl+Z/Ctrl+Y.')
+      window.alert('Paint Win 95\\nShortcuts: B/E/L/R/C/F/T/S and Ctrl+Z/Ctrl+Y.')
     })
 
     this.openFileInput.addEventListener('change', (event) => {
@@ -290,6 +290,17 @@ class PaintApp {
   }
 
   setupDesktopShell() {
+    const desktopIcons = Array.from(document.querySelectorAll('.desktop-icon'))
+
+    desktopIcons.forEach((icon) => {
+      icon.addEventListener('click', (event) => {
+        if (icon instanceof HTMLAnchorElement) {
+          event.preventDefault()
+        }
+        this.setActiveDesktopIcon(icon)
+      })
+    })
+
     this.startButton.addEventListener('click', () => this.toggleStartMenu())
 
     this.taskPaintButton.addEventListener('click', () => {
@@ -305,9 +316,19 @@ class PaintApp {
     this.windowMaxButton.addEventListener('click', () => this.toggleMaximizeWindow())
     this.windowCloseButton.addEventListener('click', () => this.closeWindow())
 
-    this.desktopPaint.addEventListener('click', () => this.showWindow())
-    this.desktopDocs.addEventListener('click', () => this.openFileInput.click())
-    this.desktopTrash.addEventListener('click', () => this.createNewCanvas())
+    this.desktopDocs.addEventListener('dblclick', () => this.openFileInput.click())
+    this.desktopTrash.addEventListener('dblclick', () => this.createNewCanvas())
+
+    desktopIcons
+      .filter((icon) => icon instanceof HTMLAnchorElement)
+      .forEach((icon) => {
+        icon.addEventListener('dblclick', (event) => {
+          event.preventDefault()
+          const href = icon.getAttribute('href')
+          if (!href) return
+          window.open(href, '_blank', 'noopener,noreferrer')
+        })
+      })
 
     this.getRequiredElement('start-open-paint').addEventListener('click', () => {
       this.showWindow()
@@ -329,6 +350,9 @@ class PaintApp {
     document.addEventListener('click', (event) => {
       const target = event.target
       if (!(target instanceof Element)) return
+      if (!target.closest('.desktop-icon')) {
+        this.setActiveDesktopIcon(null)
+      }
       if (!target.closest('#start-menu') && !target.closest('#start-btn')) {
         this.closeStartMenu()
       }
@@ -374,6 +398,17 @@ class PaintApp {
       }
       this.dragWindowState = null
     })
+  }
+
+  setActiveDesktopIcon(icon) {
+    if (this.activeDesktopIcon) {
+      this.activeDesktopIcon.classList.remove('active')
+    }
+
+    this.activeDesktopIcon = icon
+    if (this.activeDesktopIcon) {
+      this.activeDesktopIcon.classList.add('active')
+    }
   }
 
   openStartMenu() {
@@ -534,22 +569,22 @@ class PaintApp {
 
   updateStatusTool() {
     const names = {
-      [MODES.DRAW]: 'Pincel',
-      [MODES.BRUSH]: 'Brocha',
-      [MODES.ERASE]: 'Borrador',
-      [MODES.LINE]: 'Linea',
-      [MODES.CURVE]: 'Curva',
-      [MODES.POLYGON]: 'Poligono',
-      [MODES.RECTANGLE]: 'Rectangulo',
-      [MODES.ROUNDED_RECTANGLE]: 'Rectangulo redondeado',
-      [MODES.ELLIPSE]: 'Elipse',
-      [MODES.FILL]: 'Relleno',
-      [MODES.PICKER]: 'Captura color',
-      [MODES.SELECT_FREE]: 'Seleccion libre',
-      [MODES.SELECT_RECT]: 'Seleccion rectangular',
-      [MODES.TEXT]: 'Texto'
+      [MODES.DRAW]: 'Pencil',
+      [MODES.BRUSH]: 'Brush',
+      [MODES.ERASE]: 'Eraser',
+      [MODES.LINE]: 'Line',
+      [MODES.CURVE]: 'Curve',
+      [MODES.POLYGON]: 'Polygon',
+      [MODES.RECTANGLE]: 'Rectangle',
+      [MODES.ROUNDED_RECTANGLE]: 'Rounded Rectangle',
+      [MODES.ELLIPSE]: 'Ellipse',
+      [MODES.FILL]: 'Fill',
+      [MODES.PICKER]: 'Color Picker',
+      [MODES.SELECT_FREE]: 'Free Select',
+      [MODES.SELECT_RECT]: 'Rectangular Select',
+      [MODES.TEXT]: 'Text'
     }
-    this.statusTool.textContent = `Herramienta: ${names[this.mode]}`
+    this.statusTool.textContent = `Tool: ${names[this.mode]}`
   }
 
   onPointerDown(event) {
@@ -914,7 +949,7 @@ class PaintApp {
   }
 
   drawTextAt(point) {
-    const text = window.prompt('Texto para insertar:')
+    const text = window.prompt('Text to insert:')
     if (!text) return
 
     this.ctx.save()
@@ -1025,7 +1060,7 @@ class PaintApp {
   }
 
   createNewCanvas() {
-    if (!window.confirm('Se limpiara el lienzo actual. Quieres continuar?')) return
+    if (!window.confirm('The current canvas will be cleared. Continue?')) return
     this.clearCanvasWithHistory()
   }
 
@@ -1150,7 +1185,7 @@ class PaintApp {
   getRequiredElement(id) {
     const element = document.getElementById(id)
     if (!element) {
-      throw new Error(`Elemento requerido no encontrado: #${id}`)
+      throw new Error(`Required element not found: #${id}`)
     }
     return element
   }

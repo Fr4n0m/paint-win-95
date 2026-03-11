@@ -60,10 +60,13 @@ body {
   font-size: 11px;
   text-align: center;
   padding: 2px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .desktop-icon:focus-visible,
-.desktop-icon:hover {
+.desktop-icon:hover,
+.desktop-icon.active {
   outline: 1px dotted #fff;
   background: rgba(0, 0, 128, 0.35);
 }
